@@ -1,51 +1,71 @@
 # Eumel
 
-Немецкая карточная игра — консоль + веб. Учебный проект: vanilla JS, ES modules, Parcel.
+A trick-taking card game from German university and military circles — console + web.  
+Learning project: vanilla JavaScript, ES modules, Parcel.
 
-## Документация
+**Rules in brief:** 4–6 players, 52 cards, suit hierarchy ♠ > ♣ > ♦ > ♥, bid on tricks, lowest score wears the *Eumel* sign.
 
-Правила и логика игры — **не в коде, а в `docs/`**:
+---
 
-| Файл | Что внутри |
-|------|------------|
-| [docs/USER_STORIES.md](./docs/USER_STORIES.md) | User stories — требования от лица игрока |
-| [docs/FLOWCHART.md](./docs/FLOWCHART.md) | Flowchart (текст Mermaid) |
-| [docs/flowchart.html](./docs/flowchart.html) | **Графические** схемы — открыть в браузере |
+## Documentation
+
+Game rules and flow live in **`docs/`** (detailed specs, partly in Russian):
+
+| File | Contents |
+|------|----------|
+| [docs/USER_STORIES.md](./docs/USER_STORIES.md) | User stories |
+| [docs/FLOWCHART.md](./docs/FLOWCHART.md) | Flowcharts (Mermaid source) |
+| [docs/flowchart.html](./docs/flowchart.html) | **Interactive** flowcharts — open in browser |
 
 ```bash
-npm run docs    # flowchart в dev-сервере
+npm run docs    # flowcharts on dev server
 ```
 
-## Быстрый старт
+---
+
+## Quick start
 
 ```bash
 npm install
-npm run dev       # веб: раздача карт
-npm run console   # консоль: демо Card + Deck
-npm run build     # сборка в dist/
-npm run preview   # просмотр dist/
+npm run dev       # web: deal cards in browser
+npm run console   # terminal: Card + Deck demo
+npm run build     # production build → dist/
+npm run preview   # serve dist/
 ```
 
-## Структура
+## Project structure
 
 ```
 src/
-  Card.js      # карта, масти, beats()
-  Deck.js      # колода, тасовка, раздача
-  Player.js    # игрок, рука, ставки, очки
-  main.js      # веб-точка входа
-  console/     # консольные демо
-docs/          # правила, user stories, flowchart
+  Card.js      # card, suits, beats()
+  Deck.js      # deck, shuffle, deal
+  Player.js    # hand, bids, scoring
+  main.js      # web entry point
+  console/     # terminal demos
+docs/          # rules, user stories, flowcharts
 ```
 
-## Статус
+## Status
 
 - [x] Card, Deck, Player
-- [x] Веб-раздача (Parcel)
-- [x] User stories + flowchart
-- [ ] Deck: частичная раздача (N карт, остаток в колоде)
-- [ ] Game.js — полная логика раундов
+- [x] Web deal (Parcel)
+- [x] User stories + flowcharts
+- [ ] Deck: partial deal (N cards, remainder stays in deck)
+- [ ] Game.js — full round logic
 
-## Автор
+## Author
 
 [andreykapas](https://github.com/andreykapas)
+
+---
+
+## По-русски
+
+Pet-project под менторством: закрепляю JS после курса, правила игры — как играли вживую (в т.ч. с немцами).
+
+**Подробные правила, user stories и схемы** — в папке [`docs/`](./docs/):
+
+- [USER_STORIES.md](./docs/USER_STORIES.md) — требования от лица игрока  
+- [flowchart.html](./docs/flowchart.html) — графические блок-схемы (`npm run docs`)
+
+Команды те же — см. **Quick start** выше.
