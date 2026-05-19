@@ -4,6 +4,7 @@ export class Player {
   bid = null;
   tricksWon = 0;
   score = 0;
+  correctBids = 0;
 
   constructor(name) {
     this.name = name;
@@ -41,5 +42,6 @@ export class Player {
     }
 
     this.score += 10 + this.tricksWon;
+    this.correctBids++;
   }
 }
