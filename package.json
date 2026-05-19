@@ -1,0 +1,17 @@
+{
+  "name": "e-eumel",
+  "version": "1.0.0",
+  "description": "Немецкая карточная игра Eumel",
+  "type": "module",
+  "scripts": {
+    "dev": "parcel index.html",
+    "build": "parcel build index.html",
+    "preview": "serve dist",
+    "docs": "parcel docs/flowchart.html",
+    "console": "node src/console/demo.js"
+  },
+  "devDependencies": {
+    "parcel": "^2.16.4",
+    "serve": "^14.2.6"
+  }
+}

@@ -1,0 +1,165 @@
+<!doctype html>
+<html lang="ru">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Eumel — Flowchart</title>
+    <style>
+      * {
+        box-sizing: border-box;
+      }
+
+      body {
+        margin: 0;
+        padding: 2rem;
+        font-family: system-ui, sans-serif;
+        background: #0f172a;
+        color: #e2e8f0;
+      }
+
+      h1 {
+        margin-top: 0;
+      }
+
+      p {
+        color: #94a3b8;
+        max-width: 60ch;
+      }
+
+      section {
+        margin-bottom: 3rem;
+        padding: 1.5rem;
+        border: 1px solid #334155;
+        border-radius: 12px;
+        background: #1e293b;
+        overflow-x: auto;
+      }
+
+      h2 {
+        margin-top: 0;
+        font-size: 1.1rem;
+      }
+
+      .mermaid {
+        display: flex;
+        justify-content: center;
+      }
+    </style>
+  </head>
+  <body>
+    <h1>Eumel — Flowchart</h1>
+    <p>
+      Графические схемы игры. Открой этот файл в браузере двойным кликом или
+      через <code>npm run docs</code>.
+    </p>
+
+    <section>
+      <h2>1. Общий поток игры</h2>
+      <pre class="mermaid">
+flowchart TD
+    START([Старт игры]) --> SETUP[Создать игроков 4–6]
+    SETUP --> PHASE_UP[Фаза 1: пирамида вверх<br/>1 → max карт]
+    PHASE_UP --> CHECK_UP{Ещё раунды<br/>в фазе 1?}
+    CHECK_UP -->|да| ROUND
+    CHECK_UP -->|нет| PHASE_DOWN[Фаза 2: пирамида вниз<br/>max−1 → 1]
+    PHASE_DOWN --> CHECK_DOWN{Ещё раунды<br/>в фазе 2?}
+    CHECK_DOWN -->|да| ROUND
+    CHECK_DOWN -->|нет| PHASE_ORDER[Фаза 3: заказы<br/>каждый игрок выбирает N карт]
+    PHASE_ORDER --> CHECK_ORDER{Все заказали<br/>свой раунд?}
+    CHECK_ORDER -->|нет| ROUND
+    CHECK_ORDER -->|да| FINAL_BONUS[Финал: +10 всем<br/>с макс. числом угадываний]
+    FINAL_BONUS --> END([Eumel / победитель])
+    ROUND --> CHECK_UP
+    ROUND --> CHECK_DOWN
+    ROUND --> CHECK_ORDER
+      </pre>
+    </section>
+
+    <section>
+      <h2>2. Один раунд</h2>
+      <pre class="mermaid">
+flowchart TD
+    R_START([Начало раунда]) --> DEAL[Тасовка + раздача N карт<br/>остаток остаётся в колоде]
+    DEAL --> VIS{Карт<br/>на игрока?}
+    VIS -->|1| VIS_ONE[Все видят чужие карты<br/>свою — нет]
+    VIS -->|2+| VIS_HAND[Каждый видит только свою руку]
+    VIS_ONE --> BID
+    VIS_HAND --> BID[Ставки по очереди]
+    BID --> BID_FIRST{Первый раунд<br/>игры?}
+    BID_FIRST -->|да| BID_P1[Первым ставит игрок 1]
+    BID_FIRST -->|нет| BID_LOSER[Первым ставит проигравший<br/>прошлого раунда]
+    BID_P1 --> BID_LOOP
+    BID_LOSER --> BID_LOOP[Игроки ставят по кругу]
+    BID_LOOP --> BID_LAST{Последний<br/>ставящий?}
+    BID_LAST -->|нет| BID_LOOP
+    BID_LAST -->|да| BID_CHECK{Сумма ставок<br/>допустима?}
+    BID_CHECK -->|нет| BID_REJECT[Отклонить ставку<br/>выбрать другую]
+    BID_REJECT --> BID_CHECK
+    BID_CHECK -->|да| TRICKS
+    TRICKS[Взятки: первым ходит<br/>последний ставивший] --> TRICK_LOOP{Ещё взятки<br/>в раунде?}
+    TRICK_LOOP -->|да| PLAY[Игроки ходят по кругу<br/>следование масти обязательно]
+    PLAY --> WIN[Определить победителя взятки<br/>♠ > ♣ > ♦ > ♥, старший ранг]
+    WIN --> TRICK_LOOP
+    TRICK_LOOP -->|нет| SCORE[Подсчёт очков раунда]
+    SCORE --> SCORE_OK{Угадал<br/>ставку?}
+    SCORE_OK -->|да| SCORE_BONUS[score += 10 + tricksWon<br/>correctBids++]
+    SCORE_OK -->|нет| SCORE_PLAIN[score += tricksWon]
+    SCORE_BONUS --> ROUND_END
+    SCORE_PLAIN --> ROUND_END[Проигравший раунда →<br/>первый в ставках следующего]
+    ROUND_END --> R_END([Конец раунда])
+      </pre>
+    </section>
+
+    <section>
+      <h2>3. Проверка суммы ставок</h2>
+      <pre class="mermaid">
+flowchart TD
+    INPUT[Последний игрок выбирает ставку] --> SUM[Сумма всех ставок]
+    SUM --> CENTRAL{Центральный<br/>раунд?<br/>5–6 max-карт}
+    CENTRAL -->|нет| RULE1{sum === tricks?}
+    RULE1 -->|да| REJECT[Недопустимо]
+    RULE1 -->|нет| OK[Ставка принята]
+    CENTRAL -->|да| RULE2{sum === tricks<br/>или tricks±1?}
+    RULE2 -->|да| REJECT
+    RULE2 -->|нет| OK
+      </pre>
+    </section>
+
+    <section>
+      <h2>4. Подсчёт взятки</h2>
+      <pre class="mermaid">
+flowchart TD
+    LEAD[Первая карта задаёт масть хода] --> NEXT{Ещё карты<br/>в взятке?}
+    NEXT -->|да| FOLLOW{У игрока есть<br/>масть хода?}
+    FOLLOW -->|да| MUST[Обязан сыграть масть хода]
+    FOLLOW -->|нет| ANY[Может сыграть любую]
+    MUST --> COMPARE
+    ANY --> COMPARE[Сравнить с текущим лидером<br/>card.beats]
+    COMPARE --> NEXT
+    NEXT -->|нет| WINNER[Победитель забирает взятку<br/>tricksWon++]
+      </pre>
+    </section>
+
+    <section>
+      <h2>5. Финал игры</h2>
+      <pre class="mermaid">
+flowchart TD
+    FIN([Все раунды сыграны]) --> MAX[Найти max correctBids]
+    MAX --> BONUS[+10 score всем<br/>с correctBids === max]
+    BONUS --> MIN[Найти min score]
+    MIN --> EUMEL[Eumel: все с score === min]
+    MIN --> WIN[Победитель: все с score === max]
+      </pre>
+    </section>
+
+    <script type="module">
+      import mermaid from "https://cdn.jsdelivr.net/npm/mermaid@11/dist/mermaid.esm.min.mjs";
+
+      mermaid.initialize({
+        startOnLoad: true,
+        theme: "dark",
+        flowchart: { curve: "basis" },
+      });
+    </script>
+  </body>
+</html>

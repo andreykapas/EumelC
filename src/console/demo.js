@@ -1,0 +1,22 @@
+import { Card, SUITS, RANKS } from "../Card.js";
+import { Deck } from "../Deck.js";
+
+const ace = new Card(
+  SUITS.find((s) => s.name === "Spades"),
+  RANKS[12],
+);
+const king = new Card(SUITS[3], RANKS[11]);
+const ten = new Card(SUITS[0], RANKS[8]);
+const two_diamonds = new Card(SUITS[1], RANKS[0]);
+
+console.log(`${ace} бьёт ${king}?`, ace.beats(king));
+console.log(`${ten} бьёт ${king}?`, ten.beats(king));
+console.log(`${two_diamonds} бьёт ${ten}?`, two_diamonds.beats(ten));
+
+const hands = new Deck().shuffle().deal(4);
+hands.forEach((hand, i) => {
+  console.log(
+    `Игрок ${i + 1} (${hand.length} карт):`,
+    hand.map((c) => c.toString()).join(" "),
+  );
+});
