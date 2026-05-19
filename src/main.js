@@ -30,6 +30,6 @@ function renderHands(hands) {
   });
 }
 
-const hands = new Deck().shuffle().deal(4);
-status.textContent = "Колода раздана — 4 игрока по 13 карт";
+const hands = new Deck().shuffle().deal(4, 1);
+status.textContent = "Колода раздана — 4 игрока по 1 карте";
 renderHands(hands);
