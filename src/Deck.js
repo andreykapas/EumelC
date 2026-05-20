@@ -23,7 +23,7 @@ export class Deck {
     const total = cardsPerPlayer * numPlayers;
     const hands = Array.from({ length: numPlayers }, () => []);
 
-    this.cards.slice(0, total).forEach((card, i) => {
+    this.cards.splice(0, total).forEach((card, i) => {
       hands[i % numPlayers].push(card);
     });
     return hands;

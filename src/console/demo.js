@@ -13,10 +13,14 @@ console.log(`${ace} бьёт ${king}?`, ace.beats(king));
 console.log(`${ten} бьёт ${king}?`, ten.beats(king));
 console.log(`${two_diamonds} бьёт ${ten}?`, two_diamonds.beats(ten));
 
-const hands = new Deck().shuffle().deal(4, 13);
+const deck = new Deck();
+
+const hands = deck.shuffle().deal(5, 10);
 hands.forEach((hand, i) => {
   console.log(
     `Игрок ${i + 1} (${hand.length} карт):`,
     hand.map((c) => c.toString()).join(" "),
   );
 });
+
+console.log(deck.cards.length);

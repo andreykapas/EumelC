@@ -3,7 +3,7 @@
 A trick-taking card game from German university and military circles — console + web.  
 Learning project: vanilla JavaScript, ES modules, Parcel.
 
-**Rules in brief:** 4–6 players, 52 cards, suit hierarchy ♠ > ♣ > ♦ > ♥, bid on tricks, lowest score wears the *Eumel* sign.
+**Rules in brief:** 4–6 players, 52 cards, suit hierarchy ♠ > ♣ > ♦ > ♥, bid on tricks, lowest score wears the _Eumel_ sign.
 
 ---
 
@@ -11,11 +11,11 @@ Learning project: vanilla JavaScript, ES modules, Parcel.
 
 Game rules and flow live in **`docs/`** (detailed specs, partly in Russian):
 
-| File | Contents |
-|------|----------|
-| [docs/USER_STORIES.md](./docs/USER_STORIES.md) | User stories |
-| [docs/FLOWCHART.md](./docs/FLOWCHART.md) | Flowcharts (Mermaid source) |
-| [docs/flowchart.html](./docs/flowchart.html) | **Interactive** flowcharts — open in browser |
+| File                                           | Contents                                     |
+| ---------------------------------------------- | -------------------------------------------- |
+| [docs/USER_STORIES.md](./docs/USER_STORIES.md) | User stories                                 |
+| [docs/FLOWCHART.md](./docs/FLOWCHART.md)       | Flowcharts (Mermaid source)                  |
+| [docs/flowchart.html](./docs/flowchart.html)   | **Interactive** flowcharts — open in browser |
 
 ```bash
 npm run docs    # flowcharts on dev server
@@ -50,7 +50,7 @@ docs/          # rules, user stories, flowcharts
 - [x] Card, Deck, Player
 - [x] Web deal (Parcel)
 - [x] User stories + flowcharts
-- [ ] Deck: partial deal (N cards, remainder stays in deck)
+- [x] Deck: partial deal (N cards, remainder stays in deck)
 - [ ] Game.js — full round logic
 
 ## Author
@@ -65,7 +65,7 @@ Pet-project под менторством: закрепляю JS после ку
 
 **Подробные правила, user stories и схемы** — в папке [`docs/`](./docs/):
 
-- [USER_STORIES.md](./docs/USER_STORIES.md) — требования от лица игрока  
+- [USER_STORIES.md](./docs/USER_STORIES.md) — требования от лица игрока
 - [flowchart.html](./docs/flowchart.html) — графические блок-схемы (`npm run docs`)
 
 Команды те же — см. **Quick start** выше.
